@@ -3,6 +3,7 @@ import * as codepipeline_actions from '@aws-cdk/aws-codepipeline-actions';
 import { Construct, StackProps, Stack, SecretValue } from "@aws-cdk/core";
 import { CdkPipeline, SimpleSynthAction } from "@aws-cdk/pipelines";
 import * as ssm from '@aws-cdk/aws-ssm';
+import { CdkpipelinesDemoStage } from './codepipelines-demo-stage';
 ``
 /**
  * The stack that defines the application pipeline
@@ -39,5 +40,11 @@ export class CdkpipelinesDemoPipelineStack extends Stack {
             })
 
         });
+
+        pipeline.addApplicationStage(new CdkpipelinesDemoStage(this,'PreProd',{
+            env: { account: '533616270150', region: 'ap-northeast-2' },
+        }))
+
+
     }
 }
